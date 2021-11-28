@@ -5,29 +5,30 @@ from django.db import migrations
 
 
 def add_data_in_table(apps, schema_editor):
-    
+
     try:
-         ProfileOld = apps.get_model('oc_lettings_site', 'Profile')
+        ProfileOld = apps.get_model("oc_lettings_site", "Profile")
     except:
         return
 
-    ProfileNew = apps.get_model('profiles', 'Profile')        
+    ProfileNew = apps.get_model("profiles", "Profile")
     for profile_old in ProfileOld.objects.all():
-        profile_new = ProfileNew(user=profile_old.user,
-                                favorite_city=profile_old.favorite_city,
-                            )
-        profile_new.save()   
+        profile_new = ProfileNew(
+            user=profile_old.user,
+            favorite_city=profile_old.favorite_city,
+        )
+        profile_new.save()
 
-    
+
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('profiles', '0001_initial'),
+        ("profiles", "0001_initial"),
     ]
 
     operations = [
-        migrations.RunPython(add_data_in_table, migrations.RunPython.noop),        
+        migrations.RunPython(add_data_in_table, migrations.RunPython.noop),
     ]
 
-    if global_apps.is_installed('oc_lettings_site'):
-        dependencies.append(('oc_lettings_site', '0001_initial'))
+    if global_apps.is_installed("oc_lettings_site"):
+        dependencies.append(("oc_lettings_site", "0001_initial"))
