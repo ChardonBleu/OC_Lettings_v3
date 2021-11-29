@@ -1,0 +1,39 @@
+{%extends "base.html"%}
+
+{% block title %}Lettings{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row text-center">
+        <div class="col">
+            <h1>Lettings</h1>
+        </div>           
+    </div>
+    <div class="row">
+        <div class="col">
+            {% if lettings_list %}
+                <ul  class="list-group">
+                {% for letting in lettings_list %}
+                    <li class="list-group-item">
+                        <a href="{% url 'lettings:letting' letting_id=letting.id %}">
+                            {{ letting.title }}
+                        </a>
+                    </li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>No lettings are available.</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row container text-center">
+        <div class="col">
+            <a href="{% url 'index' %}">Home</a> |
+            <a href="{% url 'profiles:index' %}">Profiles</a>
+        </div>
+    </div>
+{% endblock %}
+
+
+

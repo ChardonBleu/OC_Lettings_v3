@@ -1,0 +1,35 @@
+{%extends "base.html"%}
+
+{% block title %}{{ profile.user.username }}{% endblock %}
+
+{% block content %}
+
+    <div class="container text-center">
+        <div class="row">
+            <div class="col">
+                <h1>{{ profile.user.username }}</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="container jumbotron">
+        <div class="row">
+            <div class="col">        
+                <p><span class='first-txt-light'>First name:</span> {{ profile.user.first_name }}</p>
+                <p><span class='first-txt-light'>Last name:</span>  {{ profile.user.last_name }}</p>
+                <p><span class='first-txt-light'>Email:</span>  {{ profile.user.email }}</p>
+                <p><span class='first-txt-light'>Favorite city:</span>  {{ profile.favorite_city }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="container text-center">
+        <div class="row">
+            <div class="col">
+                <a href="{% url 'profiles:index' %}">Back</a> |
+                <a href="{% url 'index' %}">Home</a> |
+                <a href="{% url 'lettings:index' %}">Lettings</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
