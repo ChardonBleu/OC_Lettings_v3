@@ -28,15 +28,14 @@ jobs:
       - run:
           name: install packages 
           command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -r requirements.txt          
+            pip install --user --no-cache-dir -r requirements.txt          
       - setup_remote_docker
       - run: |
           TAG=0.1.<< pipeline.number >>
           docker build -t $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME:$TAG .
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_LOGIN --password-stdin
           docker push $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME:$TAG
+          docker build -t $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME .
           docker push $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
 
 workflows:
