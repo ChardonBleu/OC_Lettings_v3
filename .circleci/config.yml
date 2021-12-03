@@ -20,14 +20,13 @@ jobs:
 
   build_push_docker_image:
       docker:
-        - image: circleci/python:3.9
+        - image: cimg/python:3.8
       steps:
         - checkout
         - run:
             name: Build app binary 
             command: |
-              pip install --user --no-cache-dir -r requirements.txt          
-              ~/.local/bin/pyinstaller -F hello_world.py
+              pip install --user --no-cache-dir -r requirements.txt
         - setup_remote_docker
         - docker/check
         - docker/build:
