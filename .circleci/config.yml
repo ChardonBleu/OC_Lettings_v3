@@ -35,7 +35,6 @@ jobs:
       - run: |
           TAG=0.1.<< pipeline.number >>
           docker build -t $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME:$TAG .
-          docker push $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME:latest
           docker push $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME:$TAG
 
 workflows:
