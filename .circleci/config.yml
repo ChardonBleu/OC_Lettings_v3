@@ -12,8 +12,10 @@ jobs:
       - image: circleci/python:3.9
     steps:
       - checkout
-      - python/install-packages:
-          pkg-manager: pip
+      - run:
+          name: install packages
+          command: |
+            pip install --user --no-cache-dir -r requirements.txt
       - run:
           name: Run tests
           command: pytest
@@ -24,7 +26,7 @@ jobs:
       steps:
         - checkout
         - run:
-            name: Build app binary 
+            name: Install packages
             command: |
               pip install --user --no-cache-dir -r requirements.txt
         - setup_remote_docker
