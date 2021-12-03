@@ -35,6 +35,7 @@ jobs:
       - run: |
           TAG=0.1.<< pipeline.number >>
           docker build -t $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME:$TAG .
+          echo $DOCKER_PASSWORD | docker login -u $DOCKER_LOGIN --password-stdin
           docker push $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME:$TAG
 
 workflows:
