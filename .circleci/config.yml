@@ -30,7 +30,7 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            pip install --user --no-cache-dir -r requirements.txt          
+            pip install -r requirements.txt          
       - setup_remote_docker
       - run: |
           TAG=0.1.<< pipeline.number >>
