@@ -20,7 +20,22 @@ jobs:
           name: Run tests
           command: pytest
 
+  build_push_docker_image:
+    docker:
+      - image: circleci/python:3.9
+    steps:
+      - checkout
+      - run:
+          name: install packages 
+          command: |
+            pip install --user --no-cache-dir -r requirements.txt          
+      - setup_remote_docker
+
+
 workflows:
   test_build_deploy:
     jobs:
       - build_test
+      - build_push_docker_image:
+          requires:
+            - build_test
