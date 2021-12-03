@@ -20,32 +20,7 @@ jobs:
           name: Run tests
           command: pytest
 
-  build_push_docker_image:
-      docker:
-        - image: circleci/python:3.9
-      steps:
-        - checkout
-        - run:
-            name: Install packages
-            command: |
-              pip install --user --no-cache-dir -r requirements.txt
-        - setup_remote_docker
-        - docker/check
-        - docker/build:
-            image: $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
-            extra_build_args: "-t $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME"
-            tag: 0.1.<< pipeline.number >>             
-        - docker/push:
-            image: $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
-            tag: "latest"
-        - docker/push:
-            image: $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
-            tag: "0.1.<< pipeline.number >>"
-
 workflows:
   test_build_deploy:
     jobs:
       - build_test
-      - build_push_docker_image:
-          requires:
-            - build_test
