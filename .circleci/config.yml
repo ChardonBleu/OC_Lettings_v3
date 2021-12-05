@@ -1,0 +1,46 @@
+version: 2.1
+jobs:
+  build_test:
+    docker:
+      - image: circleci/python:3.9
+    steps:
+      - checkout
+      - run:
+          name: install packages
+          command: |
+            pip install --user --no-cache-dir -r requirements.txt
+      - run:
+          name: Run tests
+          command: pytest
+
+  build_push_docker_image:
+    docker:
+      - image: circleci/python:3.9
+        auth:
+          username: $DOCKER_LOGIN
+          password: $DOCKER_PASSWORD
+    steps:
+      - checkout
+      - run:
+          name: install packages 
+          command: |
+            pip install --user --no-cache-dir -r requirements.txt          
+      - setup_remote_docker
+      - run: |
+          TAG=$CIRCLE_SHA1
+          docker build -t $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME:$TAG .
+          echo $DOCKER_PASSWORD | docker login -u $DOCKER_LOGIN --password-stdin
+          docker push $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME:$TAG
+          docker build -t $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME .
+          docker push $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
+
+workflows:
+  test_build_deploy:
+    jobs:
+      - build_test
+      - build_push_docker_image:
+          requires:
+            - build_test
+          filters:
+            branches:
+              only: master
