@@ -1,0 +1,9 @@
+.vscode
+htmlcov
+venv
+.env
+.coverage
+.coveragerc
+README.md
+.gitignore
+__pycache__/
