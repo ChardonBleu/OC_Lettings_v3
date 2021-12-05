@@ -27,7 +27,7 @@ jobs:
             pip install --user --no-cache-dir -r requirements.txt          
       - setup_remote_docker
       - run: |
-          TAG=0.1.<< pipeline.number >>
+          TAG=$CIRCLE_SHA1
           docker build -t $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME:$TAG .
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_LOGIN --password-stdin
           docker push $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME:$TAG
