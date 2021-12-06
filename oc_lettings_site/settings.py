@@ -130,5 +130,5 @@ sentry_sdk.init(
     send_default_pii=True,
 )
 
-if os.environ.get('ENV') == 'production':
-    django_heroku.settings(locals())
+# if os.environ.get('ENV') == 'production':
+django_heroku.settings(locals())
