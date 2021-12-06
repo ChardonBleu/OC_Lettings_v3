@@ -119,7 +119,7 @@ STATICFILES_DIRS = [
 
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 sentry_sdk.init(
     dsn="https://b4ceaf7fba9c4fbbbac613c7436fd6db@o1055466.ingest.sentry.io/6066480",
