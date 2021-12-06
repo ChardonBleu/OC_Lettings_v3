@@ -6,6 +6,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 RUN mkdir /code
+RUN apt-get update && apt-get install libpq-dev
 
 WORKDIR /code
 
