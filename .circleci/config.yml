@@ -14,7 +14,7 @@ jobs:
           command: pytest
       - run:
           name: Run Linting
-          command: flake8 --exclude=F841
+          command: flake8 --ignore=F841
 
   build_push_docker_image:
     docker:
