@@ -1,4 +1,8 @@
 version: 2.1
+
+orbs: 
+  heroku: circleci/heroku@1.2.6
+
 jobs:
   build_test:
     docker:
@@ -9,6 +13,7 @@ jobs:
           name: install packages
           command: |
             pip install --user --no-cache-dir -r requirements.txt
+          when: always
       - run:
           name: Run tests
           command: pytest
