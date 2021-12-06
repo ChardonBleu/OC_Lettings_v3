@@ -120,8 +120,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 sentry_sdk.init(
     dsn="https://b4ceaf7fba9c4fbbbac613c7436fd6db@o1055466.ingest.sentry.io/6066480",
     integrations=[DjangoIntegration()],
@@ -135,4 +133,5 @@ sentry_sdk.init(
 )
 
 if os.environ.get('ENV') == 'production':
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
     django_heroku.settings(locals())
