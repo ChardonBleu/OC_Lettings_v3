@@ -6,3 +6,4 @@ pytest.ini
 /.pytest_cache
 .coveragerc
 .coverage
+.env
