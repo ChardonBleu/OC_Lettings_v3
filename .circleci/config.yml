@@ -12,19 +12,19 @@ jobs:
       - run:
           name: Run tests
           command: pytest
+      - run:
+          name: Run Linting
+          command: flake8
 
   build_push_docker_image:
     docker:
       - image: circleci/python:3.9
-        auth:
-          username: $DOCKER_LOGIN
-          password: $DOCKER_PASSWORD
     steps:
       - checkout
-      - run:
-          name: install packages 
-          command: |
-            pip install --user --no-cache-dir -r requirements.txt          
+      - # run:
+          # name: install packages 
+          # command: |
+            # pip install --user --no-cache-dir -r requirements.txt          
       - setup_remote_docker
       - run: |
           TAG=$CIRCLE_SHA1
