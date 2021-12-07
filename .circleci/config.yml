@@ -35,6 +35,12 @@ jobs:
           docker push $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
           docker push $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME:$TAG
 
+  deploy:
+    executor: heroku/default
+    steps:
+      - checkout
+      - heroku/install
+      - heroku/deploy-via-git
 
 workflows:
   test_build_deploy:
@@ -43,6 +49,12 @@ workflows:
       - build_push_docker_image:
           requires:
             - build_test
+          filters:
+            branches:
+              only: master
+      - deploy:
+          requires:
+            - build_push_docker_image
           filters:
             branches:
               only: master
