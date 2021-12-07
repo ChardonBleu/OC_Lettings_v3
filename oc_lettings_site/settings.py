@@ -13,10 +13,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY", "fp$9^593hsriajg$_%=5trot9g!1qa@ew(o-1#@=&4%=hp46(s")
+SECRET_KEY = os.getenv("SECRET_KEY", "fp$9^593hsriajg$_%=5trot9g!1qa@ew(o-1#@=&4%=hp46(s")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False if os.environ.get("ENV", "development") == "production" else True
+DEBUG = False if os.getenv("ENV", "development") == "production" else True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', '.herokuapp.com']
 
@@ -42,7 +42,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = "oc_lettings_site.urls"
@@ -118,7 +117,7 @@ STATICFILES_DIRS = (
 )
 
 sentry_sdk.init(
-    dsn="https://b4ceaf7fba9c4fbbbac613c7436fd6db@o1055466.ingest.sentry.io/6066480",
+    dsn=os.getenv('SENTRY_DSN'),
     integrations=[DjangoIntegration()],
     # Set traces_sample_rate to 1.0 to capture 100%
     # of transactions for performance monitoring.
@@ -129,6 +128,5 @@ sentry_sdk.init(
     send_default_pii=True,
 )
 
-if os.environ.get('ENV') == 'production':
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+if os.getenv('ENV') == 'production':
     django_heroku.settings(locals())
