@@ -54,7 +54,7 @@ workflows:
               only: master
       - deploy:
           requires:
-            -build_push_docker_image
+            - build_push_docker_image
           filters:
             branches:
               only: master
