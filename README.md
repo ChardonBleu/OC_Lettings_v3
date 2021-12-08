@@ -12,9 +12,8 @@
 
 
 
-Projet 13 de la formation DA python d'Openclassrooms.
-Site web d'Orange County Lettings.
-Mise en place d'un pipeline CI/CD avec Circleci et Heroku
+Projet 13 de la formation DA python d'Openclassrooms.  
+Site web d'Orange County Lettings. Mise en place d'un pipeline CI/CD avec Circleci et Heroku
 
 ## Développement local
 
@@ -48,8 +47,8 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 
 #### Variables d'environnement
 
-- Renomemr le fichier .env.exemple en .env
-- Dans ce fichier renseigner votre DSN pour Sentry
+- Renommer le fichier .env_exemple en .env
+- Dans ce fichier renseigner votre DSN Sentry pour un logging du projet en developpement.
 
 #### Exécuter le site
 
@@ -100,28 +99,29 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 ### Prérequis
 
-- repository cloné en local
+- Repository cloné en local
 - Docker
 
-Si ce n'est pas déjà fait installer Docker: `https://docs.docker.com/get-docker/`.  
+Si ce n'est pas déjà fait, installer Docker: `https://docs.docker.com/get-docker/`.  
 Sur Linux, installer également Docker Compose (il est compris dans Docker Desktop pour Mac et Windows):  `https://docs.docker.com/compose/install/ `.
 
 ### Windows
 
-Attention: sur windows il faut au préalable avoir activé WSL2 (sous système linux). Il faut aussi activer Hyper-V backend, ce qui necessite windows10 pro ou windows11 pro. `https://docs.docker.com/desktop/windows/install/`.
+Attention: sur windows il faut au préalable avoir activé WSL2 (sous-système linux). Il faut aussi activer Hyper-V backend, ce qui nécessite Windows10 pro ou Windows11 pro. `https://docs.docker.com/desktop/windows/install/`.
 
 Dans VSCode installer les extensions Remote Development et Docker.
 
-Ouvrir le projet necessitant Docker dans VSCode. Le terminal propose alors un powershel et il apparait alors un nouveau petit rectangle coloré en bas à gauche.    
+Ouvrir le projet necessitant Docker dans VSCode. Le terminal propose alors un powershell et il apparait alors un nouveau petit rectangle coloré en bas à gauche.    
 ![Alt text](readme_img/VSCode_windows.jpg?raw=true "Projet ouvert dans VSCode avec windows")  
-En cliquant sur ce retangle on peut alors réouvrir ce projet dans wsl.  
+En cliquant sur ce retangle on peut réouvrir ce projet dans wsl.  
 Le terminal propose alors un bash linux.  
   
 ![Alt text](readme_img/VSCode_folders.jpg?raw=true "Projet ouvert dans VSCode avec ubuntu de wsl2")  
 
-En allant dans Fichier --> Ouvrir le dossier ... on peut naviguer dans tous les répertoires, y compris ceux du sous système Linux.
+En allant dans Fichier --> Ouvrir le dossier ... on peut naviguer dans tous les répertoires, y compris ceux du sous-système Linux.
 
 Un bash Ubuntu est également disponible dans les applications:  
+
 ![Alt text](readme_img/bash_Ubuntu.jpg?raw=true "Bash Ubuntu") 
 
 ### Faire tourner l'application localement dans un conteneur  
@@ -134,36 +134,40 @@ L'application est alors disponible en local sur `localhost:8000`.
 
 ### Prérequis
 
-- Compte GitHub avec accès en lecture à ce repository
-- Compte DockerHub avec un dépot public
-- Compte Circleci avec un projet lié au dépot GitHub de l'application
-- Compte Heroku sur lequel a été créé une application
-- Compte Sentry avec un projet pour cette application
+- Compte GitHub avec accès en lecture au repository de l'application.
+- Compte DockerHub avec un dépot public.
+- Compte Circleci avec un projet lié au dépot GitHub de l'application.
+- Compte Heroku sur lequel a été créé une application.
+- Compte Sentry avec un projet pour cette application.
 
-Récupérer sur DockerHub l'acces Token et le noter.
-Récupérer sur Heroku l'API Key dans les settings de votre compte Heroku
-Récupérer le DSN du projet Sentry  
+Récupérer sur DockerHub l'acces Token et le noter.  
+Récupérer sur Heroku l'API Key dans les settings de votre compte Heroku.  
+Récupérer le DSN du projet Sentry.  
 
-Dans les settings de circleci ajouter les variables d'environnement necessaire:  
+Dans les settings de Circleci ajouter les variables d'environnement nécessaires:  
 
-![Alt text](readme_img/var_env_circleci_2.jpg?raw=true "Projet ouvert dans VSCode avec ubuntu de wsl2")
-DOCKER_LOGIN corerspond à votre username sur DockerHub  
-DOCKER_PASSWORD correspond à votre Token acces sur DockerHub  
-HEROKU-API_KEY est l'API Key récupérée sur votre compte Heroku  
-HEROKU_APP_NAME est le nom que vous avez choisi pour votre application sur Heroku  
-SECRET_KEY est la secret key de production de settings.py de l'application Django
-SENTRY_DSN est le DSN de votre projet Sentry
+![Alt text](readme_img/var_env_circleci_2.jpg?raw=true "Projet ouvert dans VSCode avec ubuntu de wsl2")  
+
+DOCKER_LOGIN correspond à votre username sur DockerHub.  
+DOCKER_PASSWORD correspond à votre Token acces sur DockerHub.  
+HEROKU-API_KEY est l'API Key récupérée sur votre compte Heroku.  
+HEROKU_APP_NAME est le nom que vous avez choisi pour votre application sur Heroku.  
+SECRET_KEY est la secret key de production de settings.py de l'application Django.  
+SENTRY_DSN est le DSN de votre projet Sentry.
 
 Faire une modification dans un fichier de l'application dans une nouvelle branche.  
-Pousser cette branche. Le pipeline lance le contrôle des tests et du linting.
-Si les tests passent, merger cette branche dans master puis pousser master.
+Pousser cette branche sur GitHub. Le pipeline lance le contrôle des tests et du linting.  
+Si les tests passent, merger cette branche dans master puis pousser master sur le repository GitHub.  
 Le pipeline exécute alors la conteneurisation puis le déploiement si la conteneurisation passe.
+La dernière image taguée avec le SHA1 du commit Circleci est sauvegardée sur DockerHub.
 
 ![Alt text](readme_img/Pipeline_deploy.jpg?raw=true "Projet ouvert dans VSCode avec ubuntu de wsl2") 
 
 Le site est alors disponible sur Heroku:  
 https://<nom_de_mon_app>.herokuapp.com/
 
+Il est possible, dans un terminal, de lancer en local le conteneur du DockerHub avec la dernière image taguée:  
+`docker run -d -p 8000:8000 <votre user name docker>/<nom du depot>:<SHA1>`
 
 Ressources utilisées
 ---
@@ -172,38 +176,47 @@ Ressources web:
 
 La documentation officielle de Docker:
 
-    https://docs.docker.com/compose/install/  
+- https://docs.docker.com/compose/install/  
 
-    https://testdriven.io/blog/docker-best-practices/
+- https://testdriven.io/blog/docker-best-practices/
 
 Le cours Openclassrrom:  
 
-    https://openclassrooms.com/fr/courses/2035766-optimisez-votre-deploiement-en-creant-des-conteneurs-avec-docker  
-    https://openclassrooms.com/fr/courses/2035736-mettez-en-place-lintegration-et-la-livraison-continues-avec-la-demarche-devops
+- https://openclassrooms.com/fr/courses/2035766-optimisez-votre-deploiement-en-creant-des-conteneurs-avec-docker
+
+- https://openclassrooms.com/fr/courses/2035736-mettez-en-place-lintegration-et-la-livraison-continues-avec-la-demarche-devops
 
 Les vidéos de Thierry Chappuis:
 
-    Fondamentaux et bonnes pratiques pour dockeriser votre application django: https://www.youtube.com/watch?v=R3FBAE_LQ7E  
-    Déployer votre application sur Heroku: https://www.youtube.com/watch?v=nkw6OIaD-7Y&t=145s et https://www.youtube.com/watch?v=iAw8KfCiNoE&t=610s
+- Fondamentaux et bonnes pratiques pour dockeriser votre application django: https://www.youtube.com/watch?v=R3FBAE_LQ7E
+
+- Déployer votre application sur Heroku: https://www.youtube.com/watch?v=nkw6OIaD-7Y&t=145s et https://www.youtube.com/watch?v=iAw8KfCiNoE&t=610s
 
 Autres vidéos:
 
-    Pycon'21 SPONSOR WORKSHOP / Angel Riviera / CircleCl:  https://www.youtube.com/watch?v=WMQvbD0Rdv4 
-    CI/CD | Continuous integration tutorial: https://www.youtube.com/watch?v=jzir3eYCCw4
+- Pycon'21 SPONSOR WORKSHOP / Angel Riviera / CircleCl:  https://www.youtube.com/watch?v=WMQvbD0Rdv4
+
+- CI/CD | Continuous integration tutorial: https://www.youtube.com/watch?v=jzir3eYCCw4
 
 La documentation  de Circleci:
 
-    https://circleci.com/blog/django-deploy/
-    https://circleci.com/blog/continuous-integration-for-django-projects/
-    https://circleci.com/docs/2.0/env-vars/
-    https://circleci.com/developer/orbs/orb/circleci/heroku
+- https://circleci.com/blog/django-deploy/
+
+- https://circleci.com/blog/continuous-integration-for-django-projects/
+
+- https://circleci.com/docs/2.0/env-vars/
+
+- https://circleci.com/developer/orbs/orb/circleci/heroku
 
 La documentation officielle de Heroku:
 
-    https://devcenter.heroku.com/articles/heroku-cli
-    https://devcenter.heroku.com/articles/heroku-cli-commands
-    https://devcenter.heroku.com/articles/django-app-configuration
-    https://devcenter.heroku.com/articles/django-assets
+- https://devcenter.heroku.com/articles/heroku-cli
+
+- https://devcenter.heroku.com/articles/heroku-cli-commands
+
+- https://devcenter.heroku.com/articles/django-app-configuration
+
+- https://devcenter.heroku.com/articles/django-assets
 
 
 Remerciements:
