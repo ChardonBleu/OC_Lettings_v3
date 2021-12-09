@@ -76,17 +76,17 @@ if os.getenv('ENV') == 'development':
             "NAME": os.path.join(BASE_DIR, "oc-lettings-site.sqlite3"),
         }
     }
-else:    
+else:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql', # on utilise l'adaptateur postgresql
-            'NAME': 'oc-lettings-site', # le nom de notre base de données créée précédemment
-            'USER': 'postgres', # attention : remplacez par votre nom d'utilisateur !!
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'oc-lettings-site',
+            'USER': 'postgres',
             'PASSWORD': '',
             'HOST': '',
             'PORT': '5432',
+        }
     }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
