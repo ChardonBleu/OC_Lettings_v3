@@ -40,6 +40,10 @@ jobs:
     steps:
       - checkout
       - heroku/install
+      - run: |
+          heroku config:set ENV=production -a $HEROKU_APP_NAME
+          heroku config:set SECRET_KEY=$SECRET_KEY -a $HEROKU_APP_NAME
+          heroku config:set SENTRY_DSN=$SENTRY_DSN -a $HEROKU_APP_NAME
       - heroku/deploy-via-git
       - run: |
           heroku run python manage.py migrate -a $HEROKU_APP_NAME
