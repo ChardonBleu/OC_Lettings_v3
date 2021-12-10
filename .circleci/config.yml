@@ -41,8 +41,7 @@ jobs:
       - checkout
       - heroku/install
       - heroku/deploy-via-git
-      - run:
-        python manage.py migrate
+      - run: python manage.py migrate
 
 workflows:
   test_build_deploy:
