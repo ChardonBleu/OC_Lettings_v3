@@ -42,9 +42,9 @@ jobs:
       - heroku/install
       - heroku/deploy-via-git
       - run: |
-          python manage.py migrate
-          python manage.py createsuperuser --username admin
-          python manage.py loaddata dumps/data.json
+          heroku run python manage.py migrate
+          heroku run python manage.py createsuperuser --username admin
+          heroku run python manage.py loaddata dumps/data.json
 
 workflows:
   test_build_deploy:
