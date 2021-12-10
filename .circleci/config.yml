@@ -41,15 +41,10 @@ jobs:
       - checkout
       - heroku/install
       - heroku/deploy-via-git
-      - run:
-          name: install packages
-          command: |
-            python3 -m pip3 install --user --no-cache-dir -r requirements.txt
-          when: always
       - run: |
-          python3 manage.py migrate
-          python3 manage.py createsuperuser --username admin
-          python3 manage.py loaddata dumps/data.json
+          python manage.py migrate
+          python manage.py createsuperuser --username admin
+          python manage.py loaddata dumps/data.json
 
 workflows:
   test_build_deploy:
