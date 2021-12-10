@@ -42,14 +42,8 @@ jobs:
       - heroku/install
       - heroku/deploy-via-git
       - run:
-        name: migrations
-        command: python manage.py migrate
-      - run:
-        name: createsuperuser
-        command: python manage.py createsuperuser --no-imput  --username admin
-      - run:
-        name: loaddata
-        command: python manage.py loaddata dumps/data.json
+        command: |
+          python manage.py migrate
 
 workflows:
   test_build_deploy:
