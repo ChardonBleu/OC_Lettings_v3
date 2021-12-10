@@ -161,9 +161,6 @@ HEROKU-API_KEY est l'API Key récupérée sur votre compte Heroku.
 HEROKU_APP_NAME est le nom que vous avez choisi pour votre application sur Heroku.  
 SECRET_KEY est la secret key de production de settings.py de l'application Django.  
 SENTRY_DSN est le DSN de votre projet Sentry.
-DJANGO_SUPERUSER_PASSWORD contient le mote de passe pour votre superuser pour le panel admin
-DJANGO_SUPERUSER_USERNAME le username pour votre nouveau superuser
-DJANGO_SUPERUSER_EMAIL l'email pour votre nouveau superuser
 
 Faire une modification dans un fichier de l'application dans une nouvelle branche.  
 Pousser cette branche sur GitHub. Le pipeline lance le contrôle des tests et du linting.  
