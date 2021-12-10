@@ -137,14 +137,21 @@ L'application est alors disponible en local sur `localhost:8000`.
 - Compte GitHub avec accès en lecture au repository de l'application.
 - Compte DockerHub avec un dépot public.
 - Compte Circleci avec un projet lié au dépot GitHub de l'application.
-- Compte Heroku sur lequel a été créé une application.
+- Compte Heroku.
 - Compte Sentry avec un projet pour cette application.
 
 Récupérer sur DockerHub l'acces Token et le noter.  
 Récupérer sur Heroku l'API Key dans les settings de votre compte Heroku.  
 Récupérer le DSN du projet Sentry.  
 
-Dans les settings de Circleci ajouter les variables d'environnement nécessaires:  
+Dans le terminal créer un nouveau projet Heroku:
+`heroku apps:create <nom de mon app>`
+Puis renseigner les variables d'environnement pour Heroku:
+`heroku settings:set ENV=production`
+`heroku settings:set SECRET_KEY=<ma secret key de production>`
+`heroku settings:set SENTRY_DSN=<votre DSN Sentry>`
+
+Dans les settings de Circleci ajouter les variables d'environnement nécessaires pour le pipeline:  
 
 ![Alt text](readme_img/var_env_circleci_2.jpg?raw=true "Projet ouvert dans VSCode avec ubuntu de wsl2")  
 
