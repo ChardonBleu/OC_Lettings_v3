@@ -42,7 +42,7 @@ jobs:
       - heroku/install
       - heroku/deploy-via-git
       - run: |
-        pyhton manage.py migrate
+        python manage.py migrate
         python manage.py createsuperuser --no-imput  --username admin
         python manage.py loaddata dumps/data.json
 
