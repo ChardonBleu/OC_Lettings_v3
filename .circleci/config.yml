@@ -41,10 +41,15 @@ jobs:
       - checkout
       - heroku/install
       - heroku/deploy-via-git
-          post-steps:
-            - run: python manage.py migrate
-            - run: python manage.py createsuperuser --no-imput  --username admin
-            - run: python manage.py loaddata dumps/data.json
+      - run:
+        name: migrations
+        command: python manage.py migrate
+      - run:
+        name: createsuperuser
+        command: python manage.py createsuperuser --no-imput  --username admin
+      - run:
+        name: loaddata
+        command: python manage.py loaddata dumps/data.json
 
 workflows:
   test_build_deploy:
