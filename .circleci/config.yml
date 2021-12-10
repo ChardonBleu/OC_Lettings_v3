@@ -44,7 +44,7 @@ jobs:
       - run: |
           heroku run python manage.py migrate -a $HEROKU_APP_NAME
           heroku run python manage.py loaddata dumps/data.json -a $HEROKU_APP_NAME
-          heroku run python manage.py createsuperuser --noinput --username -a $HEROKU_APP_NAME
+          heroku run python manage.py createsuperuser --noinput --username admin -a $HEROKU_APP_NAME
           
 workflows:
   test_build_deploy:
