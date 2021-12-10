@@ -42,6 +42,7 @@ jobs:
       - heroku/install
       - heroku/deploy-via-git
       - run: python manage.py migrate
+      - run: python manage.py createsuperuser --username admin
 
 workflows:
   test_build_deploy:
