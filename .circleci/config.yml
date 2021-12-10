@@ -44,7 +44,7 @@ jobs:
       - run:
           name: install packages
           command: |
-            pip3 install --user --no-cache-dir -r requirements.txt
+            python3 -m pip install --user --no-cache-dir -r requirements.txt
           when: always
       - run: |
           python manage.py migrate
