@@ -146,10 +146,6 @@ Récupérer le DSN du projet Sentry.
 
 Dans le terminal créer un nouveau projet Heroku:
 `heroku apps:create <nom de mon app>`
-Puis renseigner les variables d'environnement pour Heroku:
-`heroku settings:set ENV=production`
-`heroku settings:set SECRET_KEY=<ma secret key de production>`
-`heroku settings:set SENTRY_DSN=<votre DSN Sentry>`
 
 Dans les settings de Circleci ajouter les variables d'environnement nécessaires pour le pipeline:  
 
@@ -175,6 +171,9 @@ https://<nom_de_mon_app>.herokuapp.com/
 
 Il est possible, dans un terminal, de lancer en local le conteneur du DockerHub avec la dernière image taguée:  
 `docker run -d -p 8000:8000 <votre user name docker>/<nom du depot>:<SHA1>`
+
+Après avoir ajouté des données à l'application, il est possible de les sauvegarder afin de les retrouver lors d'un nouveau déploiement:
+`python manage.py dumpdata > dumps/data.json`
 
 Ressources utilisées
 ---
