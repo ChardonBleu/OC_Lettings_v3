@@ -21,7 +21,6 @@ jobs:
           name: Run Linting
           command: flake8 --ignore=F841
 
-  
   build_push_docker_image:
     docker:
       - image: circleci/python:3.9
@@ -47,9 +46,9 @@ jobs:
           heroku config:set SENTRY_DSN=$SENTRY_DSN -a $HEROKU_APP_NAME
       - heroku/deploy-via-git
       - run: |
+          heroku run python manage.py makemigrations -a $HEROKU_APP_NAME
           heroku run python manage.py migrate -a $HEROKU_APP_NAME
-          heroku run python manage.py loaddata dumps/data.json -a $HEROKU_APP_NAME
-          
+
 workflows:
   test_build_deploy:
     jobs:
