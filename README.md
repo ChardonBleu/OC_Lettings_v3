@@ -173,10 +173,10 @@ La dernière image taguée avec le SHA1 du commit CircleCI est sauvegardée sur 
 Le site est alors disponible sur Heroku:  
 https://<nom_de_mon_app>.herokuapp.com/
 
-Juste après déploiement il est possible de créer un nouveau superuser:
+Juste après déploiement il est possible de créer un nouveau superuser:  
 `heroku run python manage.py createsuperuser`
 
-Les données peuvent enfin être chargée dans le base de données de production:
+Les données peuvent enfin être chargée dans le base de données de production:  
 `heroku run python manage.py loaddata dumps/data.json`
 
 Il est possible, dans un terminal, de lancer en local le conteneur du DockerHub avec la dernière image taguée:  
