@@ -7,5 +7,4 @@ venv
 README.md
 .gitignore
 __pycache__/
-oc-lettings-site.sqlite3
 readme_img

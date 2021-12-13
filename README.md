@@ -124,15 +124,16 @@ Un bash Ubuntu est également disponible dans les applications:
 
 ![Alt text](readme_img/bash_Ubuntu.jpg?raw=true "Bash Ubuntu") 
 
-### Faire tourner l'application localement dans un conteneur  
+### Faire tourner l'application locale dans un conteneur  
 
 Dans un terminal se mettre dans le répertoire racine de l'application (celui contenant les fichiers Dockerfile et docker-compose.yml) et lancer le conteneur:  
 `docker-compose up`  
 L'application est alors disponible en local sur `localhost:8000`.
 
-## Deployer l'application sur Heroku
+## Pipeline CI/CD CircleCI avec déploiement sur Heroku
 
 ### Prérequis
+
 
 - Compte GitHub avec accès en lecture au repository de l'application.
 - Compte DockerHub avec un dépot public.
@@ -144,10 +145,13 @@ Récupérer sur DockerHub l'acces Token et le noter.
 Récupérer sur Heroku l'API Key dans les settings de votre compte Heroku.  
 Récupérer le DSN du projet Sentry.  
 
+Si les données ont été modifiées localement, il est possible de les sauvegarder afin de pouvoir les charger dans la base de données de production à l'issue du déploiement:
+`python manage.py dumpdata > dumps/data.json`  
+
 Dans le terminal créer un nouveau projet Heroku:
 `heroku apps:create <nom de mon app>`
 
-Dans les settings de Circleci ajouter les variables d'environnement nécessaires pour le pipeline:  
+Dans les settings de CircleCI ajouter les variables d'environnement nécessaires pour le pipeline:  
 
 ![Alt text](readme_img/var_env_circleci_2.jpg?raw=true "Projet ouvert dans VSCode avec ubuntu de wsl2")  
 
@@ -162,18 +166,22 @@ Faire une modification dans un fichier de l'application dans une nouvelle branch
 Pousser cette branche sur GitHub. Le pipeline lance le contrôle des tests et du linting.  
 Si les tests passent, merger cette branche dans master puis pousser master sur le repository GitHub.  
 Le pipeline exécute alors la conteneurisation puis le déploiement si la conteneurisation passe.
-La dernière image taguée avec le SHA1 du commit Circleci est sauvegardée sur DockerHub.
+La dernière image taguée avec le SHA1 du commit CircleCI est sauvegardée sur DockerHub.
 
 ![Alt text](readme_img/Pipeline_deploy.jpg?raw=true "Projet ouvert dans VSCode avec ubuntu de wsl2") 
 
 Le site est alors disponible sur Heroku:  
 https://<nom_de_mon_app>.herokuapp.com/
 
-Il est possible, dans un terminal, de lancer en local le conteneur du DockerHub avec la dernière image taguée:  
-`docker run -d -p 8000:8000 <votre user name docker>/<nom du depot>:<SHA1>`
+Juste après déploiement il est possible de créer un nouveau superuser:
+`heroku run python manage.py createsuperuser`
 
-Après avoir ajouté des données à l'application, il est possible de les sauvegarder afin de les retrouver lors d'un nouveau déploiement:
-`python manage.py dumpdata > dumps/data.json`
+Les données peuvent enfin être chargée dans le base de données de production:
+`heroku run python manage.py loaddata dumps/data.json`
+
+Il est possible, dans un terminal, de lancer en local le conteneur du DockerHub avec la dernière image taguée:  
+`docker run -d -p 8000:8000 <votre user name docker>/<nom du depot>:<SHA1>`  
+
 
 Ressources utilisées
 ---
