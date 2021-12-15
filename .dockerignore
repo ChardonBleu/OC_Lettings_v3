@@ -1,7 +1,6 @@
 .vscode
 htmlcov
 venv
-.env
 .coverage
 .coveragerc
 README.md
