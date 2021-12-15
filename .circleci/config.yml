@@ -25,13 +25,9 @@ jobs:
     docker:
       - image: circleci/python:3.9
     steps:
-      - checkout   
+      - checkout
       - setup_remote_docker
       - run: |
-          touch .env
-          echo "SENTRY_DSN=$SENTRY_DSN" > .env
-          echo "ENV=development" > .env
-          echo "SECRET_KEY=$SECRET_KEY" > .env
           TAG=$CIRCLE_SHA1
           docker build -t $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME .
           docker build -t $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME:$TAG .
