@@ -14,9 +14,6 @@ COPY requirements.txt /code/
 
 RUN pip install -r requirements.txt
 
-RUN touch .env
-RUN echo "SENTRY_DSN="$SENTRY_DSN > .env && echo "ENV=development" > .env
-
 COPY . /code/
 
 CMD python3 manage.py runserver 0.0.0.0:8000
